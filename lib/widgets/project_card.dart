@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProjectCard extends StatelessWidget {
   final String projectTitle;
   final String projectDescription;
   final ImageProvider projectImage;
   final String projectTag;
-  ProjectCard(
-      {this.projectTitle,
-      this.projectDescription,
-      this.projectImage,
-      this.projectTag});
+  final String url;
+
+  ProjectCard({
+    this.projectTitle,
+    this.projectDescription,
+    this.projectImage,
+    this.projectTag,
+    this.url,
+  });
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+    return GestureDetector(
+      onTap: () => launch(url),
       child: Container(
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(

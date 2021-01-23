@@ -199,13 +199,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: widgetInfoList
-                        .map((widgetInfo) =>
-                            MemberCircle(widgetInfo: widgetInfo))
-                        .toList(),
+                  SizedBox(
+                    height: 120,
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      children: widgetInfoList
+                          .map((widgetInfo) =>
+                              MemberCircle(widgetInfo: widgetInfo))
+                          .toList(),
+                    ),
                   ),
                   SizedBox(
                     height: 8,
@@ -229,11 +232,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (snapshot.hasData) {
                         return Column(
                           children: snapshot.data
-                              .map((project) => ProjectCard(
-                                    projectTitle: project.title,
-                                    projectDescription: project.description,
-                                    projectImage: project.image,
-                                    projectTag: project.tag,
+                              .map((project) => Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 16, right: 16, bottom: 16),
+                                    child: ProjectCard(
+                                      projectTitle: project.title,
+                                      projectDescription: project.description,
+                                      projectImage: project.image,
+                                      projectTag: project.tag,
+                                      url: project.url,
+                                    ),
                                   ))
                               .toList(),
                         );
@@ -264,7 +272,9 @@ class MemberCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      height: 100,
+      width: 100,
       child: GestureDetector(
         onTap: () => Navigator.push(
           context,
@@ -292,6 +302,7 @@ class MemberCircle extends StatelessWidget {
               Text(
                 widgetInfo.developer,
                 textAlign: TextAlign.center,
+                maxLines: 2,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
